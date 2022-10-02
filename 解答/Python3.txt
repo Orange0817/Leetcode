@@ -1,0 +1,7 @@
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        rom2num={'I':1,'V':5,'X':10,'L':50,'C':100,'D':500,'M':1000}
+        res=rom2num[s[0]]
+        for i in range(1,len(s)):
+            res+=rom2num[s[i]]-2*rom2num[s[i-1]] if rom2num[s[i]]>rom2num[s[i-1]] else rom2num[s[i]]
+        return res

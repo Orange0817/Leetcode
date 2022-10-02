@@ -1,0 +1,31 @@
+defmodule Solution do
+  @mapping %{
+    ?I => 1,
+    ?V => 5,
+    ?X => 10,
+    ?L => 50,
+    ?C => 100,
+    ?D => 500,
+    ?M => 1000
+  }
+
+  @spec roman_to_int(s :: String.t) :: integer
+  def roman_to_int(s) do
+    solve(s, {0, nil})
+  end
+  
+  defp solve(<<char, rest::binary>>, {sum, prev}) do
+    n = @mapping[char]
+      
+    if n > prev do
+	  # If the current char's number is greater than the previous char's number,
+	  # we need to subtract the previous char twice because in the previous round of recursion,
+	  # we assume it should be added to the sum.
+      solve(rest, {sum + n - 2 * prev, n})   
+    else
+      solve(rest, {sum + n, n})
+    end
+  end
+      
+  defp solve("", {sum, _}), do: sum
+end

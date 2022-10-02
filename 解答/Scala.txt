@@ -1,0 +1,44 @@
+object Solution {
+    def romanToInt(s: String): Int = 
+    {
+        val numList = new Array[Int](s.length);
+        var i = 0
+        while(i < s.length)
+        {
+            numList(i) = convertRomanLetterToInteger(s.charAt(i))
+            i += 1
+        }
+        var sum = 0;
+        sum += numList(0);
+        i = 1
+        while(i < numList.length)
+        {
+            if(numList(i-1) < numList(i) && isLittleNum(numList(i-1)))
+            sum -= numList(i-1) * 2
+            sum += numList(i)
+            i += 1
+        }
+
+    return sum
+    }
+    def convertRomanLetterToInteger(num: Char): Int = 
+    {
+        num match 
+        {
+            case 'I' => 1
+            case 'V' => 5
+            case 'X' => 10
+            case 'L' => 50
+            case 'C' => 100
+            case 'D' => 500
+            case 'M' => 1000
+        }
+    }
+    def isLittleNum(x:Int): Boolean = 
+    {
+        if(x == 1 || x == 10 || x == 100)
+        true
+        else
+        false
+    }
+}

@@ -1,0 +1,32 @@
+-spec roman_to_int(S :: unicode:unicode_binary()) -> integer().
+roman_to_int(S) ->
+    List1 = replaceTar(S),
+    lists:foldl(
+        fun(E, Num) ->
+            Add = 
+                case E of
+                    73 -> 1;
+                    86 -> 5;
+                    88 -> 10;
+                    76 -> 50;
+                    67 -> 100;
+                    68 -> 500;
+                    77 -> 1000;
+                    97 -> 4;
+                    98 -> 9;
+                    99 -> 40;
+                    100 -> 90;
+                    101 -> 400;
+                    102 -> 900
+                end,
+            Num + Add                
+        end, 0, List1
+    ).
+
+replaceTar(List) ->
+    List1 = re:replace(List, "IV", "a", [global, {return, list}]),
+    List2 = re:replace(List1, "IX", "b", [global, {return, list}]),
+    List3 = re:replace(List2, "XL", "c", [global, {return, list}]),
+    List4 = re:replace(List3, "XC", "d", [global, {return, list}]),
+    List5 = re:replace(List4, "CD", "e", [global, {return, list}]),
+    re:replace(List5, "CM", "f", [global, {return, list}]).
